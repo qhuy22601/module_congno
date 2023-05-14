@@ -1,0 +1,11 @@
+.table{
+    width: 100%;
+}
+.upload{
+    display:flex;
+    justify-content: flex-end;
+}
+.uploadButton{
+    margin: 10px 10px 10px 10px;
+    border: solid 2px #4175e4;
+}
