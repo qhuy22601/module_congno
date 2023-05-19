@@ -1,0 +1,17 @@
+.container{
+    display: block;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.search_container{
+    width: 30%;
+    margin-left: 20px;
+}
+.addBtn{
+    float: right;
+    margin-right: 20px;
+}
