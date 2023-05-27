@@ -90,7 +90,7 @@ function SearchInput() {
           <input
             value={searchText}
             ref={inputRef}
-            placeholder="Search..."
+            placeholder="Tìm Kiếm..."
             spellCheck={false}
             onChange={handleChange}
             onFocus={() => setShowResults(true)}

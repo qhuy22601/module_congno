@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form, Input, Modal, Space, Table } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  PlusCircleTwoTone,
-  CheckCircleTwoTone,
-  SearchOutlined 
-} from "@ant-design/icons";
+
 
 import {Link} from "react-router-dom";
 
@@ -22,24 +16,24 @@ export default function DisplayCustomers() {
     //   key: 'id',
     //   render: (text) => <a>{text}</a>,
     // },
-    {
-      title: "Image",
-      dataIndex: "logo",
-      key: "logo",
-      size: "small",
-      render: (image) => (
-        <img
-          alt={image}
-          src={image}
-          style={{
-            width: 50,
-            height: 50,
-            border: "1px solid #d9d9d9",
-            borderRadius: "10%",
-          }}
-        />
-      ),
-    },
+    // {
+    //   title: "Image",
+    //   dataIndex: "logo",
+    //   key: "logo",
+    //   size: "small",
+    //   render: (image) => (
+    //     <img
+    //       alt={image}
+    //       src={image}
+    //       style={{
+    //         width: 50,
+    //         height: 50,
+    //         border: "1px solid #d9d9d9",
+    //         borderRadius: "10%",
+    //       }}
+    //     />
+    //   ),
+    // },
     {
       title: "MST",
       dataIndex: "mst",
@@ -47,7 +41,7 @@ export default function DisplayCustomers() {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Name",
+      title: "Tên Công Ty",
       dataIndex: "name",
       key: "name",
       render: (text) => <a>{text}</a>,
@@ -58,22 +52,20 @@ export default function DisplayCustomers() {
       key: "contactEmail",
     },
     {
-      title: "Number",
+      title: "SDT",
       dataIndex: "contactNumber",
       key: "contactNumber",
     },
     {
-      title: "City",
+      title: "Thành Phố",
       dataIndex: "city",
       key: "city",
     },
     {
-      title: "District",
-      dataIndex: "district",
-      key: "district",
+      title: "Địa Chỉ",
+      dataIndex: "address",
+      key: "address",
     },
-
-   
   ];
 
   const [user, setUser] = useState([]);
@@ -100,8 +92,8 @@ export default function DisplayCustomers() {
           <Input placeholder="Search..." suffix={<SearchOutlined />} />
         </Space> */}
         <SearchInput />
-        <Link to ="/add-customer">
-          <Button className={style.addBtn}>Add Customer</Button>
+        <Link to="/add-customer">
+          <Button className={style.addBtn}>Thêm Khách Hàng</Button>
         </Link>
       </div>
       <Table

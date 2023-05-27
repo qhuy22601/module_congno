@@ -146,7 +146,7 @@
 }
 
 .options_container {
-  width:40%;
+  width:70%;
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
@@ -170,6 +170,7 @@
   font-size: 18px;
   color: #333;
   text-decoration: none;
+  width: 150px;
 }
 
 .sidebar_nav_link:hover {
