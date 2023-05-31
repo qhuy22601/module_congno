@@ -5,6 +5,7 @@ import ImportExcel from "./component/ImportExcel";
 import DisplayCustomers from "./component/DisplayCustomers";
 import Customer from "./component/Customers";
 import Statistic from "./component/Statistic";
+import User from "./component/User";
 
 function AppContainer(){
     return (
@@ -15,6 +16,7 @@ function AppContainer(){
           <Route path="/customer" element={<DisplayCustomers />} />
           <Route path="/add-customer" element={<Customer />} />
           <Route path="/statistic" element={<Statistic />} />
+          <Route path="/user/:id" element={<User />} />
         </Routes>
       </HashRouter>
     );

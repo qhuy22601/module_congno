@@ -38,13 +38,13 @@ export default function DisplayCustomers() {
       title: "MST",
       dataIndex: "mst",
       key: "mst",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => <Link to={`/user/${record.id}`}>{text}</Link>,
     },
     {
       title: "Tên Công Ty",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => <Link to={`/user/${record.id}`}>{text}</Link>,
     },
     {
       title: "Email",

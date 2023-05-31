@@ -15,87 +15,6 @@ import {  CloudUploadOutlined} from "@ant-design/icons";
 const { Item } = Form;
 
 function Customer() {
-  //  const [form] = Form.useForm();
-  //  const [loading, setLoading] = useState(false);
-  //  const [logo, setLogo] = useState("");
-
-  //  const handleMstChange = async (e) => {
-  //    const mst = e.target.value;
-
-  //    try {
-  //      setLoading(true);
-  //      const response = await axios.get(`/api/user/find?mst=${mst}`);
-  //      const userData = response.data;
-
-  //      if (userData) {
-  //        form.setFieldsValue({
-  //          name: userData.name,
-  //        });
-  //      }
-  //    } catch (error) {
-  //      console.error(error);
-  //    } finally {
-  //      setLoading(false);
-  //    }
-  //  };
-  //  //Fix lai lay file
-  //    const handleUploadChange = (info) => {
-  //      if (info.file.status === "done") {
-  //        // Lấy đường dẫn ảnh từ phản hồi sau khi tải lên thành công
-  //        const imageUrl = info.file.response.imageUrl;
-  //        setLogo(imageUrl);
-  //      }
-  //    };
-
-  // const handleSubmit = async (values) => {
-  //   try {
-  //     const response = await axios.post("/api/user/save", values);
-  //     console.log(response.data);
-  //     form.resetFields();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // return (
-  //   <div className={style.container}>
-  //     <h2>Add Customer</h2>
-  //     <div className={style.info}>
-  //       <div className={style.basic_info}>
-  //         <Form form={form} onFinish={handleSubmit} layout="vertical">
-  //           <Col className={style.formRow}>
-  //             <Form.Item
-  //               label="MST"
-  //               name="mst"
-  //               rules={[{ required: true, message: "Please enter mst" }]}
-  //             >
-  //               <Input onChange={handleMstChange} />
-  //             </Form.Item>
-  //           </Col>
-  //           <Col>
-  //             <Form.Item
-  //               label="Name"
-  //               name="name"
-  //               rules={[{ required: true, message: "Please enter name" }]}
-  //             >
-  //               <Input />
-  //             </Form.Item>
-  //           </Col>
-  //           <Col>
-  //             <Form.Item>
-  //               <Button type="primary" htmlType="submit">
-  //                 Add User
-  //               </Button>
-  //             </Form.Item>
-  //           </Col>
-  //         </Form>
-  //       </div>
-  //       <div className={style.contact_info}></div>
-  //     </div>
-  //     <div className={style.debt}></div>
-  //   </div>
-  // );
-
   const [form] = Form.useForm();
    const [loading, setLoading] = useState(false);
    const [balance, setBalance] = useState(0);
@@ -147,6 +66,7 @@ function Customer() {
         body: JSON.stringify(values),
       });
       // if res
+      form.resetFields();
       // ...
     } catch (error) {
       console.error(error);
