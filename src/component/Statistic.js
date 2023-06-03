@@ -31,9 +31,15 @@ export default function Statistic(){
         render: (text) => <a>{text}</a>,
       },
       {
-        title: "Name",
+        title: "Tên",
         dataIndex: ["user", "name"],
         key: "name",
+        render: (text) => <a>{text}</a>,
+      },
+      {
+        title: "Email",
+        dataIndex: ["user", "contactEmail"],
+        key: "email",
         render: (text) => <a>{text}</a>,
       },
       {
@@ -57,7 +63,7 @@ export default function Statistic(){
         key: "balance",
       },
       {
-        title: "Action",
+        title: "",
         key: "action",
         render: (_, record) => (
           <CheckCircleTwoTone

@@ -206,13 +206,16 @@ function Customer() {
         </Item>
       </div>
       <h3>CÔNG NỢ</h3>
-      <table className="debt-table" style={{marginLeft:"auto", marginRight:"auto"}}>
+      <table
+        className="debt-table"
+        style={{ marginLeft: "auto", marginRight: "auto" }}
+      >
         <tbody>
           <tr>
-            <th>Date</th>
-            <th>Debt</th>
-            <th>Pay</th>
-            <th>Balance</th>
+            <th>Ngày</th>
+            <th>Công nợ</th>
+            <th>Thanh toán</th>
+            <th>Số dư</th>
           </tr>
           <tr>
             <td>
@@ -266,7 +269,7 @@ function Customer() {
       </table>
       <Item>
         <Button type="primary" htmlType="submit">
-          Save
+          Lưu
         </Button>
       </Item>
     </Form>

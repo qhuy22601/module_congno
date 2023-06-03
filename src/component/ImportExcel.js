@@ -68,10 +68,10 @@ const ImportExcel = () => {
   
     return (
       <div>
-        <Button onClick={handleAddRow}>Add Row</Button>
-        <Button onClick={handleAddColumn}>Add Column</Button>
-        <Button onClick={handleSaveExcel}>Save Excel</Button>
-  
+        <Button onClick={handleAddRow}>Thêm hàng</Button>
+        <Button onClick={handleAddColumn}>Thêm cột</Button>
+        <Button onClick={handleSaveExcel}>Lưu excel</Button>
+
         {columns.length > 0 && (
           <Table
             dataSource={dataSource}

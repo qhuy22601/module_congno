@@ -12,7 +12,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import {  FaHome,
   FaUser,
   FaCog,
- FaList, FaFileContract, FaChartPie, FaFileImport, FaFileCsv} from "react-icons/fa";
+ FaList, FaFileContract, FaChartPie, FaFileImport, FaFileCsv, FaMailBulk} from "react-icons/fa";
 import "../style/Navbar.module.css";
 
 const drawerWidth = 240;
@@ -27,8 +27,8 @@ const theme = createTheme({
 
 const Sidebar = () => {
   return (
-    <ThemeProvider theme={theme} >
-      <Drawer variant="permanent" >
+    <ThemeProvider theme={theme}>
+      <Drawer variant="permanent">
         <List>
           <ListItem button>
             <ListItemIcon>
@@ -73,9 +73,14 @@ const Sidebar = () => {
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <FaList />
+              <FaMailBulk />
             </ListItemIcon>
-            <ListItemText primary="Công việc" />
+            <a
+              href="/#/mail"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItemText primary="Email" />
+            </a>
           </ListItem>
           <ListItem button>
             <ListItemIcon>

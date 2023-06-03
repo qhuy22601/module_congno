@@ -89,13 +89,13 @@ const handleImport = () => {
 
 return (
   <div>
-    <div style={{display:"flex"}}>
-      <div style={{width:"75%"}}>
+    <div style={{ display: "flex" }}>
+      <div style={{ width: "75%" }}>
         <Upload beforeUpload={handleFileUpload} showUploadList={false}>
-          <Button>Select Excel File</Button>
+          <Button>Chọn file excel</Button>
         </Upload>
       </div>
-      <div style={{float:"right"}}>
+      <div style={{ float: "right" }}>
         <input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
         <Button onClick={handleImport}>Import</Button>
       </div>
