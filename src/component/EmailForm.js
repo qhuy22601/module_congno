@@ -16,7 +16,9 @@ const EmailForm = () => {
         const response = await axios.get("/api/debt/getAll");
         const emailData = response.data;
         setEmailData(emailData);
-        const emailAddresses = emailData.map((email) => email.user.contactEmail);
+        const emailAddresses = emailData.map(
+          (email) => email.user?.contactEmail
+        );
         setEmails(emailAddresses);
       } catch (error) {
         message.error("Failed to fetch email data: " + error.message);
@@ -29,7 +31,7 @@ const EmailForm = () => {
   useEffect(() => {
     const fetchSelectedEmailData = () => {
       const selectedEmailData = emailData.find(
-        (email) => email.user.contactEmail === selectedEmail
+        (email) => email.user?.contactEmail === selectedEmail
       );
       if (selectedEmailData) {
         form.setFieldsValue({
@@ -48,41 +50,26 @@ const EmailForm = () => {
   const onFinish = async (values) => {
     const { recipient, msgBody, subject } = values;
 
+    const formData = new FormData();
+    formData.append("recipient", recipient);
+    formData.append("msgBody", msgBody);
+    formData.append("subject", subject);
     if (attachment) {
-      const formData = new FormData();
-      formData.append("recipient", recipient);
-      formData.append("msgBody", msgBody);
-      formData.append("subject", subject);
-      formData.append("attachment", attachment);
+      formData.append("attachment", attachment, attachment.name);
+    }
 
-      try {
-        await axios.post("/api/email/sendMailWithAttachment", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        message.success("Email sent successfully.");
-        form.resetFields();
-      } catch (error) {
-        message.error("Failed to send email: " + error.message);
-      }
-    } else {
-      const requestBody = {
-        recipient,
-        msgBody,
-        subject,
-      };
-
-      try {
-        await axios.post("/api/email/sendMail", requestBody);
-        message.success("Email sent successfully.");
-        form.resetFields();
-      } catch (error) {
-        message.error("Failed to send email: " + error.message);
-      }
+    try {
+      await axios.post("/api/email/sendMailWithAttach", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      message.success("Email sent successfully.");
+      form.resetFields();
+    } catch (error) {
+      message.error("Failed to send email: " + error.message);
     }
   };
-
   const handleEmailChange = (value) => {
     setSelectedEmail(value);
   };
@@ -108,12 +95,23 @@ const EmailForm = () => {
             label="Người nhận"
             rules={[{ required: true, message: "Điền vào chỗ trống" }]}
           >
-            <Select placeholder="Người nhận" onChange={handleEmailChange}>
+            <Select
+              showSearch
+              placeholder="Chọn hoặc nhập địa chỉ email người nhận"
+              optionFilterProp="children"
+              onChange={handleEmailChange}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
               {emails.map((email) => (
                 <Select.Option key={email} value={email}>
                   {email}
                 </Select.Option>
               ))}
+              <Select.Option value="manual">
+                Nhập địa chỉ email khác
+              </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
