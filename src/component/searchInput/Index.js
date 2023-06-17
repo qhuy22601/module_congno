@@ -104,7 +104,7 @@ function SearchInput() {
             <FontAwesomeIcon className={cx("loading")} icon={faSpinner} />
           )}
 
-          {/* <button
+          {/* <Button style={{ backgroundColor: "green", color: "white" }} 
             className={cx("search-btn")}
             onMouseDown={(e) => e.preventDefault()}
           >

@@ -13,46 +13,62 @@ import style from "../style/Customer.module.css";
 import {  CloudUploadOutlined} from "@ant-design/icons";
 import moment from "moment";
 import Sidebar from "./SideBar";
+import MyContext from "./MyContext";
 const { Item } = Form;
 
-function Customer() {
+function Test(props) {
+
+
+    
+
   const [form] = Form.useForm();
-   const [loading, setLoading] = useState(false);
-   const [balance, setBalance] = useState(0);
-   const [userData, setUserData] = useState(null); 
-
-  const handleMstChange = async (e) => {
-    const mst = e.target.value;
-
-    try {
-      setLoading(true);
-      const response = await axios.get(`/api/debt/find?mst=${mst}`);
-      const debtData = response.data;
-
-      if (debtData.length > 0) {
-        const { user } = debtData[0];
-        setUserData(user); // Update user data state
-        form.setFieldsValue({
-          user: {
-            name: user.name,
-            foundatingDate: moment(user.foundatingDate, "YYYY-MM-DD"),
-            city: user.city,
-            district: user.district,
-            ward: user.ward,
-            address: user.address,
-            contactName: user.contactName,
-            contactTitle: user.contactTitle,
-            contactEmail: user.contactEmail,
-            contactNumber: user.contactNumber,
-          },
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  const [loading, setLoading] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [userData, setUserData] = useState(null);
+  const [mstt, setMst] = useState()
+  useEffect(() => { 
+    async function getDebtByUserId() {
+      const res = await axios.get("/api/user/" + props.param);
+      setMst(res.data.payload.mst);
     }
-  };
+    // console.log("dsjosadjodasjo"+mst)
+    getDebtByUserId();
+  }, [mstt, props.param]);
+
+  useEffect(() => {
+    const handleMstChange = async (e) => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`/api/debt/find?mst=${mstt}`);
+        const debtData = response.data;
+
+        if (debtData.length > 0) {
+          const { user } = debtData[0];
+          setUserData(user); // Update user data state
+          form.setFieldsValue({
+            user: {
+              mst:mstt,
+              name: user.name,
+              foundatingDate: moment(user.foundatingDate, "YYYY-MM-DD"),
+              city: user.city,
+              district: user.district,
+              ward: user.ward,
+              address: user.address,
+              contactName: user.contactName,
+              contactTitle: user.contactTitle,
+              contactEmail: user.contactEmail,
+              contactNumber: user.contactNumber,
+            },
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    handleMstChange()
+  });
 
   const handleDebtChange = (e) => {
     const debt = e.target.value;
@@ -68,14 +84,11 @@ function Customer() {
     setBalance(newBalance);
   };
 
-
-
-  const[note, setNote] = useState("");
+  const [note, setNote] = useState("");
 
   const handleNoteChange = (e) => {
     setNote(e.target.value);
   };
-
 
   const handleSubmit = async (values) => {
     try {
@@ -93,16 +106,20 @@ function Customer() {
       console.error(error);
     }
   };
-
+  const handleReload = () => {
+    window.location.reload();
+  };
+  const [test, setTest] = useState(true);
+  const handleTest = () => {
+    setTest((prev) => !prev);
+  };
 
   return (
     <div style={{ display: "flex" }}>
-      <Sidebar
-        style={{ flex: "0 0 auto", position: "sticky", width: "178px" }}
-      />
-      <div style={{ width: "88%", marginLeft: "auto", marginRight: 0 }}>
+      <div>
+        {/* <h1>{props.param}</h1> */}
         <Form form={form} onFinish={handleSubmit} className="debt-form">
-          <div style={{ borderBottom: "1px solid blue" }}>
+          <div style={{ borderBottom: "1px solid blue", display: "none" }}>
             <h3>THÔNG TIN CHUNG</h3>
             <p style={{ marginLeft: "10px", fontWeight: "bold" }}>
               Thông tin cơ bản
@@ -117,7 +134,7 @@ function Customer() {
               wrapperCol={{ span: 18 }}
             >
               <Input
-                onChange={handleMstChange}
+                // onChange={handleMstChange}
                 style={{ width: "300px", textAlign: "center" }}
               />
             </Item>
@@ -233,101 +250,132 @@ function Customer() {
               <Input style={{ width: "300px" }} />
             </Item>
           </div>
-          <h3>CÔNG NỢ</h3>
-          <table
-            className="debt-table"
-            style={{ marginLeft: "auto", marginRight: "auto" }}
-          >
-            <tbody>
-              <tr>
-                <th>Ngày</th>
-                <th>Chú thích</th>
-                <th>Công nợ</th>
-                <th>Thanh toán</th>
-                <th>Số dư</th>
-              </tr>
-              <tr>
-                <td>
-                  <Form.Item
-                    name="date"
-                    rules={[{ required: true, message: "Please enter a date" }]}
-                  >
-                    <DatePicker style={{ width: "100%" }} />
-                  </Form.Item>
-                </td>
-                <td>
-                  <Form.Item
-                    name="note"
-                    rules={[
-                      { required: true, message: "Please enter the Note" },
-                    ]}
-                  >
-                    <Input
-                      type="text"
-                      onChange={handleNoteChange}
-                      style={{ width: "100%", textAlign: "center" }}
-                    />
-                  </Form.Item>
-                </td>
-                <td>
-                  <Form.Item
-                    name="debt"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter the debt amount",
-                      },
-                    ]}
-                  >
-                    <Input
-                      type="number"
-                      onChange={handleDebtChange}
-                      style={{ width: "100%", textAlign: "center" }}
-                    />
-                  </Form.Item>
-                </td>
-                <td>
-                  <Form.Item
-                    name="pay"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter the pay amount",
-                      },
-                    ]}
-                  >
-                    <Input
-                      type="number"
-                      onChange={handlePayChange}
-                      style={{ width: "100%", textAlign: "center" }}
-                    />
-                  </Form.Item>
-                </td>
-                <td>
-                  <Form.Item name="balance">
-                    <Input
-                      value={balance}
-                      disabled
-                      style={{ width: "100%", textAlign: "center" }}
-                      placeholder={balance}
-                    />
-                  </Form.Item>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {/* <h3>CÔNG NỢ</h3> */}
           <Item>
-            <Button style={{ backgroundColor: "green", color: "white" }}  type="primary" htmlType="submit">
-              Lưu
+            <Button
+              style={{
+                backgroundColor: "green",
+                color: "white",
+              }}
+              type="primary"
+              onClick={handleTest}
+            >
+              Sửa
             </Button>
           </Item>
+          {!test && (
+            <div>
+              <table
+                className="debt-table"
+                style={{ marginLeft: "auto", marginRight: "auto" }}
+              >
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Form.Item
+                        name="date"
+                        rules={[
+                          { required: true, message: "Please enter a date" },
+                        ]}
+                      >
+                        <DatePicker style={{ width: "100%" }} />
+                      </Form.Item>
+                    </td>
+                    <td>
+                      <Form.Item
+                        name="note"
+                        rules={[
+                          { required: true, message: "Please enter the Note" },
+                        ]}
+                      >
+                        <Input
+                          type="text"
+                          onChange={handleNoteChange}
+                          style={{ width: "100%", textAlign: "center" }}
+                        />
+                      </Form.Item>
+                    </td>
+                    <td>
+                      <Form.Item
+                        name="debt"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the debt amount",
+                          },
+                        ]}
+                      >
+                        <Input
+                          type="number"
+                          onChange={handleDebtChange}
+                          style={{ width: "100%", textAlign: "center" }}
+                        />
+                      </Form.Item>
+                    </td>
+                    <td>
+                      <Form.Item
+                        name="pay"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the pay amount",
+                          },
+                        ]}
+                      >
+                        <Input
+                          type="number"
+                          onChange={handlePayChange}
+                          style={{ width: "100%", textAlign: "center" }}
+                        />
+                      </Form.Item>
+                    </td>
+                    <td>
+                      <Form.Item name="balance">
+                        <Input
+                          value={balance}
+                          disabled
+                          style={{ width: "100%", textAlign: "center" }}
+                          placeholder={balance}
+                        />
+                      </Form.Item>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <Item>
+                <Button
+                  style={{
+                    backgroundColor: "green",
+                    color: "white",
+                    marginRight: "20px",
+                  }}
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Thêm
+                </Button>
+                <span></span>
+                <Button type="primary" onClick={handleReload}>
+                  Lưu
+                </Button>
+              </Item>
+            </div>
+          )}
         </Form>
       </div>
     </div>
   );
 }
 
-export default Customer;
+export default Test;
 
 
 

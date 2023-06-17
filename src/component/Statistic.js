@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
-import { Button, Form, Input, Modal, Space, Table } from "antd";
+import { Button, Form, Input, Modal, Space, Table , message} from "antd";
 import {
   CheckCircleTwoTone,
   FilePdfOutlined,
   DownloadOutlined,
   FileWordOutlined,
   PictureOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
-
+import { Link } from "react-router-dom";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -16,7 +17,7 @@ import "jspdf-autotable";
 import { saveAs } from "file-saver";
 import Docxtemplater from "docxtemplater";
 import JSZip from "jszip";
-
+import Sidebar from "./SideBar";
 
 export default function Statistic(){
 
@@ -43,13 +44,13 @@ export default function Statistic(){
         title: "MST",
         dataIndex: ["user", "mst"],
         key: "mst",
-        render: (text) => <a>{text}</a>,
+        render: (text, record) => <Link to={`/user/${record.id}`}>{text}</Link>,
       },
       {
         title: "Tên",
         dataIndex: ["user", "name"],
         key: "name",
-        render: (text) => <a>{text}</a>,
+        render: (text, record) => <Link to={`/user/${record.id}`}>{text}</Link>,
       },
       {
         title: "Email",
@@ -61,6 +62,11 @@ export default function Statistic(){
         title: "Ngày",
         dataIndex: "date",
         key: "date",
+      },
+      {
+        title: "Chú thích",
+        dataIndex: "note",
+        key: "note",
       },
       {
         title: "Công nợ",
@@ -133,12 +139,19 @@ export default function Statistic(){
     const handleCheckClick = async (id) => {
       try {
         await axios.post(`/api/debt/save-to-excel/${id}`);
-        // Handle success, e.g., display success message or update table data
         await getAll();
       } catch (error) {
         // Handle error, e.g., display error message
       }
     };
+    async function sendMail(){
+      try{
+        await axios.post("/api/email/sendMailWithAttach");
+        message.success("OKKK");
+      }catch(error){
+        message.error("KO OKKK" + error);
+      }
+    }
 
     const [data, setData] = useState([])
 
@@ -153,35 +166,49 @@ export default function Statistic(){
 
     return (
       <div>
-        <div>
-          <Button
-            type="primary"
-            icon={<DownloadOutlined />}
-            onClick={handleDownloadExcel}
-          >
-            Excel
-          </Button>
-          <Button
-            type="primary"
-            icon={<FilePdfOutlined />}
-            onClick={handleDownloadPDF}
-          >
-            PDF
-          </Button>
-          <Button
-            type="primary"
-            icon={<PictureOutlined />}
-            onClick={handleDownloadPNG}
-          >
-            PNG
-          </Button>
+        <div style={{ display: "flex" }}>
+          <Sidebar
+            style={{ flex: "0 0 auto", position: "sticky", width: "178px" }}
+          />
+          <div style={{ width: "88%", marginLeft: "auto", marginRight: 0 }}>
+            <div>
+              <Button style={{ backgroundColor: "green", color: "white" }} 
+                type="primary"
+                icon={<DownloadOutlined />}
+                onClick={handleDownloadExcel}
+              >
+                Excel
+              </Button>
+              <Button style={{ backgroundColor: "green", color: "white" }} 
+                type="primary"
+                icon={<FilePdfOutlined />}
+                onClick={handleDownloadPDF}
+              >
+                PDF
+              </Button>
+              <Button style={{ backgroundColor: "green", color: "white" }} 
+                type="primary"
+                icon={<PictureOutlined />}
+                onClick={handleDownloadPNG}
+              >
+                PNG
+              </Button>
+              <Button style={{ backgroundColor: "green", color: "white" }} 
+                type="primary"
+                icon={<MailOutlined />}
+                onClick={sendMail}
+              >
+                Send mail
+              </Button>
+            </div>
+            <Table
+              dataSource={data}
+              columns={columns}
+              tableLayout="fixed"
+              ref={tableRef}
+            />
+          </div>
         </div>
-        <Table
-          dataSource={data}
-          columns={columns}
-          tableLayout="fixed"
-          ref={tableRef}
-        />
       </div>
     );
 }

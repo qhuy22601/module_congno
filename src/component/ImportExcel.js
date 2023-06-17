@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { Table, Button, Input } from 'antd';
-
+import Sidebar from './SideBar';
 const ImportExcel = () => {
     const [columns, setColumns] = useState([]);
     const [dataSource, setDataSource] = useState([]);
@@ -68,18 +68,25 @@ const ImportExcel = () => {
   
     return (
       <div>
-        <Button onClick={handleAddRow}>Thêm hàng</Button>
-        <Button onClick={handleAddColumn}>Thêm cột</Button>
-        <Button onClick={handleSaveExcel}>Lưu excel</Button>
-
-        {columns.length > 0 && (
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            pagination={false}
-            rowKey="key"
+        <div style={{ display: "flex" }}>
+          <Sidebar
+            style={{ flex: "0 0 auto", position: "sticky", width: "178px" }}
           />
-        )}
+          <div style={{ width: "88%", marginLeft: "auto", marginRight: 0 }}>
+            <Button style={{ backgroundColor: "green", color: "white" }}  onClick={handleAddRow}>Thêm hàng</Button>
+            <Button style={{ backgroundColor: "green", color: "white" }}  onClick={handleAddColumn}>Thêm cột</Button>
+            <Button style={{ backgroundColor: "green", color: "white" }}  onClick={handleSaveExcel}>Lưu excel</Button>
+
+            {columns.length > 0 && (
+              <Table
+                dataSource={dataSource}
+                columns={columns}
+                pagination={false}
+                rowKey="key"
+              />
+            )}
+          </div>
+        </div>
       </div>
     );
 };

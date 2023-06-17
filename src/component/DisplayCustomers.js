@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form, Input, Modal, Space, Table } from "antd";
-
+import Sidebar from "./SideBar";
 
 import {Link} from "react-router-dom";
 
@@ -57,9 +57,9 @@ export default function DisplayCustomers() {
       key: "contactNumber",
     },
     {
-      title: "Thành Phố",
-      dataIndex: "city",
-      key: "city",
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
     },
     {
       title: "Địa Chỉ",
@@ -87,21 +87,28 @@ export default function DisplayCustomers() {
 
   return (
     <div className={style.container}>
-      <div className={style.header}>
-        {/* <Space className={style.search_container}>
+      <div style={{ display: "flex" }}>
+        <Sidebar
+          style={{ flex: "0 0 auto", position: "sticky", width: "178px" }}
+        />
+        <div style={{ width: "88%", marginLeft: "auto", marginRight: 0 }}>
+          <div className={style.header}>
+            {/* <Space className={style.search_container}>
           <Input placeholder="Search..." suffix={<SearchOutlined />} />
         </Space> */}
-        <SearchInput />
-        <Link to="/add-customer">
-          <Button className={style.addBtn}>Thêm Khách Hàng</Button>
-        </Link>
+            <SearchInput />
+            <Link to="/add-customer">
+              <Button style={{ backgroundColor: "green", color: "white" }}  className={style.addBtn}>Thêm Khách Hàng</Button>
+            </Link>
+          </div>
+          <Table
+            columns={columns}
+            dataSource={user}
+            rowKey={(record) => record.id}
+            bordered
+          />
+        </div>
       </div>
-      <Table
-        columns={columns}
-        dataSource={user}
-        rowKey={(record) => record.id}
-        bordered
-      />
     </div>
   );
 }

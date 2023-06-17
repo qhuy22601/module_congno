@@ -5,7 +5,7 @@ import styles from "../style/DisplayExcel.module.css";
 import Icon, { UploadOutlined } from '@ant-design/icons';
 import { read, utils } from 'xlsx';
 import axios from "axios";
-
+import Sidebar from './SideBar';
 const DisplayExcel = () => {
 const [excelData, setExcelData] = useState(null);
 const [selectedFile, setSelectedFile] = useState(null);
@@ -90,19 +90,30 @@ const handleImport = () => {
 return (
   <div>
     <div style={{ display: "flex" }}>
-      <div style={{ width: "75%" }}>
-        <Upload beforeUpload={handleFileUpload} showUploadList={false}>
-          <Button>Chọn file excel</Button>
-        </Upload>
-      </div>
-      <div style={{ float: "right" }}>
-        <input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
-        <Button onClick={handleImport}>Import</Button>
+      <Sidebar
+        style={{ flex: "0 0 auto", position: "sticky", width: "178px" }}
+      />
+      <div style={{ width: "88%", marginLeft: "auto", marginRight: 0 }}>
+        <div style={{ display: "flex" }}>
+          <div style={{ width: "75%" }}>
+            <Upload beforeUpload={handleFileUpload} showUploadList={false}>
+              <Button style={{ backgroundColor: "green", color: "white" }} >Chọn file excel</Button>
+            </Upload>
+          </div>
+          <div style={{ float: "right" }}>
+            <input
+              type="file"
+              accept=".xlsx,.xls"
+              onChange={handleFileChange}
+            />
+            <Button style={{ backgroundColor: "green", color: "white" }}  onClick={handleImport}>Import</Button>
+          </div>
+        </div>
+        {excelData && excelData.length > 1 && (
+          <Table dataSource={dataSource} columns={columns} />
+        )}
       </div>
     </div>
-    {excelData && excelData.length > 1 && (
-      <Table dataSource={dataSource} columns={columns} />
-    )}
   </div>
 );
 };

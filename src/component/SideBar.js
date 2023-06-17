@@ -27,72 +27,68 @@ const theme = createTheme({
 
 const Sidebar = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Drawer variant="permanent">
-        <List>
+    <ThemeProvider
+      theme={theme}
+      style={{ backgroundColor: "#293462", color: "#293462" }}
+    >
+      <Drawer
+        variant="permanent"
+        style={{ background: "#293462", color: "#293462" }}
+      >
+        <List
+          style={{ background: "#455388", color: "#455388", height: "100%" }}
+        >
           <ListItem button>
             <ListItemIcon>
-              <FaHome />
+              <FaHome style={{ color: "white" }} />
             </ListItemIcon>
-            <a href="/" style={{ textDecoration: "none", color: "black" }}>
+            <a href="/#/" style={{ textDecoration: "none", color: "white" }}>
               <ListItemText primary="Trang chủ" />
             </a>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <FaUser />
+              <FaUser style={{ color: "white" }} />
             </ListItemIcon>
             <a
               href="/#/customer"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color: "white" }}
             >
               <ListItemText primary="Khách hàng" />
             </a>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <FaFileCsv />
+              <FaFileCsv style={{ color: "white" }} />
             </ListItemIcon>
             <a
               href="/#/import"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color: "white" }}
             >
               <ListItemText primary="Nhập" />
             </a>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <FaChartPie />
+              <FaChartPie style={{ color: "white" }} />
             </ListItemIcon>
             <a
               href="/#/statistic"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color: "white" }}
             >
               <ListItemText primary="Thống kê" />
             </a>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <FaMailBulk />
+              <FaMailBulk style={{ color: "white" }} />
             </ListItemIcon>
             <a
               href="/#/mail"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color: "white" }}
             >
               <ListItemText primary="Email" />
             </a>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <FaFileContract />
-            </ListItemIcon>
-            <ListItemText primary="Hợp đồng" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Cài đặt" />
           </ListItem>
         </List>
       </Drawer>

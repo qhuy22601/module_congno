@@ -7,7 +7,7 @@ import Customer from "./component/Customers";
 import Statistic from "./component/Statistic";
 import User from "./component/User";
 import EmailForm from "./component/EmailForm";
-
+import Test from "./component/Test";
 function AppContainer(){
     return (
       <HashRouter>
@@ -19,6 +19,7 @@ function AppContainer(){
           <Route path="/statistic" element={<Statistic />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/mail" element={<EmailForm />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </HashRouter>
     );
