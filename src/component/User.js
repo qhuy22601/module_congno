@@ -160,6 +160,7 @@ function User() {
       };
       await axios.put("/api/user/change", formData);
       message.success("OKKK");
+      window.location.reload();
     } catch (error) {
       message.error("KO OKKK");
     }
@@ -239,6 +240,7 @@ const handleTest = () => {
                 labelCol={{ span: 6 }}
                 labelAlign="left"
                 wrapperCol={{ span: 18 }}
+                required
               >
                 <Input
                   style={{ width: "300px", textAlign: "center" }}
@@ -252,6 +254,7 @@ const handleTest = () => {
                 labelCol={{ span: 6 }}
                 labelAlign="left"
                 wrapperCol={{ span: 18 }}
+                required
               >
                 <Input style={{ width: "300px" }} placeholder={data.name} />
               </Item>
@@ -262,6 +265,7 @@ const handleTest = () => {
                 labelCol={{ span: 6 }}
                 labelAlign="left"
                 wrapperCol={{ span: 18 }}
+                required
               >
                 <DatePicker
                   style={{ width: "300px" }}
@@ -278,6 +282,7 @@ const handleTest = () => {
                 labelCol={{ span: 6 }}
                 labelAlign="left"
                 wrapperCol={{ span: 18 }}
+                required
               >
                 <Input style={{ width: "300px" }} placeholder={data.city} />
               </Item>
@@ -288,6 +293,7 @@ const handleTest = () => {
                 labelCol={{ span: 6 }}
                 labelAlign="left"
                 wrapperCol={{ span: 18 }}
+                required
               >
                 <Input style={{ width: "300px" }} placeholder={data.district} />
               </Item>

@@ -9,10 +9,18 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExploreIcon from "@mui/icons-material/Explore";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
-import {  FaHome,
+import {
+  FaHome,
   FaUser,
   FaCog,
- FaList, FaFileContract, FaChartPie, FaFileImport, FaFileCsv, FaMailBulk} from "react-icons/fa";
+  FaList,
+  FaFileContract,
+  FaChartPie,
+  FaFileImport,
+  FaFileCsv,
+  FaMailBulk,
+  FaSkype,
+} from "react-icons/fa";
 import "../style/Navbar.module.css";
 
 const drawerWidth = 240;
@@ -88,6 +96,17 @@ const Sidebar = () => {
               style={{ textDecoration: "none", color: "white" }}
             >
               <ListItemText primary="Email" />
+            </a>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <FaSkype style={{ color: "white" }} />
+            </ListItemIcon>
+            <a
+              href="https://oa.zalo.me/home/resources/guides/-quan-ly-admin-tai-khoan-zalo-cloud-account-zca_8584225574368857503?fbclid=IwAR2u1-y0IFhCAsIVg-cPAbn6ldk9rsfwVouqo5c-zwDx25OwPWd_s1vWahQ"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <ListItemText primary="Zalo" />
             </a>
           </ListItem>
         </List>

@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 import style from "../style/DisplayCustomer.module.css"
 import SearchInput from "./searchInput/Index";
-
+import { DeleteOutlined } from "@ant-design/icons";
 export default function DisplayCustomers() {
   const columns = [
     // {
@@ -66,23 +66,39 @@ export default function DisplayCustomers() {
       dataIndex: "address",
       key: "address",
     },
+    {
+      title: "Hành động",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <DeleteOutlined
+            style={{ color: "red" }}
+            onClick={() => del(record.id)}
+          />
+        </Space>
+      ),
+    },
   ];
 
   const [user, setUser] = useState([]);
 
-  async function getAllEm() {
-    const result = await axios({
-      method: "get",
-      url: "/api/user/get",
-    });
-   
-      setUser(result.data);
-    
-  }
+ 
+
+async function del(id){
+    await axios.delete("/api/user/del/"+id)
+}
 
   useEffect(() => {
+     async function getAllEm() {
+       const result = await axios({
+         method: "get",
+         url: "/api/user/get",
+       });
+
+       setUser(result.data);
+     }
     getAllEm();
-  }, []);
+  }, [user]);
 
 
   return (

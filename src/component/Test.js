@@ -68,7 +68,7 @@ function Test(props) {
       }
     };
     handleMstChange()
-  });
+  },[mstt, form]);
 
   const handleDebtChange = (e) => {
     const debt = e.target.value;
