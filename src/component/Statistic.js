@@ -156,7 +156,7 @@ export default function Statistic(){
     const [data, setData] = useState([])
 
     async function getAll(){
-       const res = await axios.get("/api/debt/getAll")
+       const res = await axios.get("/api/debt/getNotNull");
        setData(res.data)
     }
 
